@@ -1,8 +1,55 @@
-.App {
+.app {
   display: flex;
   justify-content: space-between;
-  align-content: center;
+  align-items: center;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  min-height: 100vh;
+  &--loading {
+    flex-wrap: wrap;
+  }
   &--local {
+    margin-right: 10px;
+    flex: 0.5;
+    &__wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: grey;
+      height: 100px;
+      text-align: center;
+
+      p {
+        color: white;
+        margin: 0;
+      }
+    }
+    &__input {
+      width: 100px;
+      height: 100px;
+    }
+    &__image {
+      width: 100px;
+      height: auto;
+    }
+  }
+  &--remote {
+    flex: 0.5;
+
+    &__placeholder {
+      background: grey;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      p {
+        color: white;
+        margin: 0;
+      }
+    }
     &__image {
       width: 100px;
       height: auto;
