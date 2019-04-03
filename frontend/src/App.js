@@ -56,7 +56,7 @@ const App = () => {
                 <p>Click to select an image</p>
               </>
               :
-              <div className="app--local__wrapper">
+              <div className="app--local__placeholder">
                 <p>Drag 'n' drop an image here</p>
               </div>
             }
