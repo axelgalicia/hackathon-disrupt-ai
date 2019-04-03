@@ -9,6 +9,7 @@ const App = () => {
   const [fileUpLoading, setFileUpLoading] = useState(false);
   const [localImage, setLocalImage] = useState(null);
   const [remoteImage, setRemoteImage] = useState(null);
+  const [remoteText, setRemoteText] = useState('');
   const [showUploadButton, setShowUploadButton] = useState(false);
   const onDrop = useCallback(acceptedFiles => {
     const reader = new FileReader()
@@ -29,9 +30,11 @@ const App = () => {
       .then(res => {
         setShowUploadButton(false);
         setFileUpLoading(false);
-        const imgData = res && res.data;
-        const imgSrc = imgData && imgData.image;
-        imgData && setRemoteImage(imgSrc);
+        const resData = res && res.data;
+        const txtSrc = resData && resData.text;
+        const imgSrc = resData && resData.image;
+        imgSrc && setRemoteImage(imgSrc);
+        txtSrc && setRemoteText(txtSrc);
       })
       .catch(err => {
         console.log(err);
@@ -73,7 +76,7 @@ const App = () => {
             remoteImage ?
             <>
               <img src={remoteImage} alt="remote" className="app--remote__image"/>
-              <p>Converted image</p>
+              <p>{remoteText}</p>
             </> :
             <div className="app--remote__placeholder">
               <p>Placeholder for converted image</p>
