@@ -23,14 +23,18 @@ def hello():
 
 @app.route("/image", methods=['POST'])
 def receive_image():
-    print('A value for debugging')
     if request.method == 'POST':
         json = request.get_json()
         picture = json['picture']
         decode64(picture)
-        stringToRGB(picture)
+        #stringToRGB(picture)
     return jsonify({'result':'Image uploaded'})
 
+@app.route("/query", methods=['POST'])
+def query_model():
+    json = request.get_json()
+    print(json['query'])
+    return jsonify({'result':'Revenue is $1,750,300.00'})
 
 def decode64(base64Image):
     print(base64Image)
@@ -51,6 +55,10 @@ def stringToRGB(base64_string):
     image = Image.open(io.BytesIO(imgdata))
     zz = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
     print(zz)
+
+# convert PIL Image to an RGB image( technically a numpy array ) that's compatible with opencv
+def toRGB(image):
+    return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
 
 
 
