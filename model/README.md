@@ -14,6 +14,7 @@
   pip Install Flask
   pip install Pillow
   pip install opencv-python
+  ip install -U flask-cors
   ```
 
   4) Run the python server

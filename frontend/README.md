@@ -1,8 +1,8 @@
 Run the frontend
 
 ```
-npm install
+yarn install
 
-npm start
+yarn start
 
 ```

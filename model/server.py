@@ -1,19 +1,24 @@
 import os
 import io
+import time
+
 from flask import request
 from flask import Flask, flash, request, redirect, url_for, jsonify
+from flask_cors import CORS
+
 from werkzeug.utils import secure_filename
+
 import base64
-import time
 from PIL import Image
 import cv2
+
 
 UPLOAD_FOLDER = '/uploads'
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # Max 16 Megabytes
-
+CORS(app)
 
 
 
@@ -34,7 +39,7 @@ def receive_image():
 def query_model():
     json = request.get_json()
     print(json['query'])
-    return jsonify({'result':'Revenue is $1,750,300.00'})
+    return jsonify({'result':'Revenue is $90M'})
 
 def decode64(base64Image):
     print(base64Image)

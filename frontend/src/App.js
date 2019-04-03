@@ -2,14 +2,18 @@ import React, { useCallback, useState } from 'react';
 import {useDropzone} from 'react-dropzone'
 import axios from 'axios';
 import './App.scss';
+import * as API from './api/AI'
 
-const remoteUrl = 'https://jsonplaceholder.typicode.com/users';
+//const remoteUrl = 'https://jsonplaceholder.typicode.com/users';
 
 const App = () => {
   const [fileUpLoading, setFileUpLoading] = useState(false);
   const [localImage, setLocalImage] = useState(null);
   const [remoteImage, setRemoteImage] = useState(null);
+  const [remoteQuery, setRemoteQuery] = useState(null);
+  const [queryResponse, setQueryResponse] = useState(null);
   const [showUploadButton, setShowUploadButton] = useState(false);
+
   const onDrop = useCallback(acceptedFiles => {
     const reader = new FileReader()
     reader.onabort = () => console.log('file reading was aborted')
@@ -25,7 +29,7 @@ const App = () => {
   const handleUpload = (image) => {
     setFileUpLoading(true);
     try{
-      axios.post(remoteUrl, { image })
+      /*axios.post(remoteUrl, { image })
       .then(res => {
         setShowUploadButton(false);
         setFileUpLoading(false);
@@ -35,10 +39,24 @@ const App = () => {
       })
       .catch(err => {
         console.log(err);
-      })
-    } catch(e) {
+      })*/
+     API.postImage(image).then( res => {
+        setShowUploadButton(false);
+        setFileUpLoading(false);
+        setRemoteImage(image);
+      });
+    }
+    catch(e) {
       console.log(e);
     }
+  }
+ // Handles Query
+  const handleQuery = (query) => {
+    API.queryModel(query).then( res => {
+      setShowUploadButton(false);
+      setFileUpLoading(false);
+      setQueryResponse(res.result);
+    });
   }
   return (
     <>
@@ -74,6 +92,11 @@ const App = () => {
             <>
               <img src={remoteImage} alt="remote" className="app--remote__image"/>
               <p>Converted image</p>
+              <div className="app--remote__query">
+              <input type="text"></input> 
+              <button onClick={() => handleQuery(remoteQuery)} className="App--local__button">Query</button>
+              <p>{ queryResponse ? queryResponse : '' }</p>
+            </div>
             </> :
             <div className="app--remote__placeholder">
               <p>Placeholder for converted image</p>
