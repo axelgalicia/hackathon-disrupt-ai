@@ -2,14 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-content: center;
-  &--localImage {
-    height: 100px;
-    width: 100px;
-    background: red;
-  }
-  &--remoteImage {
-    height: 100px;
-    width: 100px;
-    background: green;
+  &--local {
+    &__image {
+      width: 100px;
+      height: auto;
+    }
   }
 }
