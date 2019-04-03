@@ -12,7 +12,7 @@ const App = () => {
     reader.onload = () => {
       // Do whatever you want with the file contents
       const base64Encoded = reader.result
-     console.log(base64Encoded)
+      console.log(base64Encoded)
     }
 
     acceptedFiles.forEach(file => reader.readAsDataURL(file));
