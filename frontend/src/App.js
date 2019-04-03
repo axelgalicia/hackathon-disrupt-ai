@@ -5,6 +5,18 @@ import './App.scss';
 const App = () => {
   const onDrop = useCallback(acceptedFiles => {
     console.log(acceptedFiles);
+    const reader = new FileReader()
+
+    reader.onabort = () => console.log('file reading was aborted')
+    reader.onerror = () => console.log('file reading has failed')
+    reader.onload = () => {
+      // Do whatever you want with the file contents
+      const base64Encoded = reader.result
+     console.log(base64Encoded)
+    }
+
+    acceptedFiles.forEach(file => reader.readAsDataURL(file));
+
   }, [])
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
