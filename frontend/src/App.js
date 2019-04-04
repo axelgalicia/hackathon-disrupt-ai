@@ -35,6 +35,8 @@ const App = () => {
         setTimeout(() => {
           setShowUploadButton(false);
           setFileUpLoading(false);
+          setQueryResponse(false);
+          setRemoteQuery(null);
           setRemoteImage(image);
         }, 3000);
       })
