@@ -9,8 +9,9 @@ const App = () => {
   const [localImage, setLocalImage] = useState(null);
   const [error, setError] = useState(null);
   const [remoteImage, setRemoteImage] = useState(null);
+  const [fileName, setFileName] = useState('');
 
-  const [remoteQuery, setRemoteQuery] = useState(null);
+  const [remoteQuery, setRemoteQuery] = useState('');
   const [queryResponse, setQueryResponse] = useState(null);
   const [showUploadButton, setShowUploadButton] = useState(false);
 
@@ -23,6 +24,7 @@ const App = () => {
       base64Encoded && setLocalImage(base64Encoded)
       setShowUploadButton(true);
       setRemoteImage(null);
+      setFileName(acceptedFiles[0].name)
     }
     acceptedFiles.forEach(file => reader.readAsDataURL(file))
   }, [])
@@ -31,7 +33,7 @@ const App = () => {
     setFileUpLoading(true);
     setShowUploadButton(false);
     try{
-      API.postImage(image).then( res => {
+      API.postImage(image, fileName).then( res => {
         setTimeout(() => {
           setShowUploadButton(false);
           setFileUpLoading(false);
@@ -50,7 +52,8 @@ const App = () => {
       setError(e.message);
     }
   }
-  const handleUserInput = () => {
+  const handleUserInput = (e) => {
+    setRemoteQuery(e.target.value);
     setQueryResponse(null);
   }
   // Handles Query
@@ -106,7 +109,7 @@ const App = () => {
             <>
               <img src={remoteImage} alt="remote" className="app--remote__image"/>
               <div className="app--remote__query">
-              <input type="text" className="app--remote__input" onChange={() => handleUserInput()}></input> 
+              <input type="text" className="app--remote__input" onChange={(e) => handleUserInput(e)}></input> 
               <button onClick={() => handleQuery(remoteQuery)} className="app--remote__button">Query</button>
               <p>{ queryResponse ? queryResponse : '' }</p>
             </div>
