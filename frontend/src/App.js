@@ -10,7 +10,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [remoteImage, setRemoteImage] = useState(null);
 
-  const [remoteQuery, setRemoteQuery] = useState(null);
+  const [remoteQuery, setRemoteQuery] = useState('');
   const [queryResponse, setQueryResponse] = useState(null);
   const [showUploadButton, setShowUploadButton] = useState(false);
 
@@ -50,7 +50,8 @@ const App = () => {
       setError(e.message);
     }
   }
-  const handleUserInput = () => {
+  const handleUserInput = (e) => {
+    setRemoteQuery(e.target.value);
     setQueryResponse(null);
   }
   // Handles Query
@@ -106,7 +107,7 @@ const App = () => {
             <>
               <img src={remoteImage} alt="remote" className="app--remote__image"/>
               <div className="app--remote__query">
-              <input type="text" className="app--remote__input" onChange={() => handleUserInput()}></input> 
+              <input type="text" className="app--remote__input" onChange={(e) => handleUserInput(e)}></input> 
               <button onClick={() => handleQuery(remoteQuery)} className="app--remote__button">Query</button>
               <p>{ queryResponse ? queryResponse : '' }</p>
             </div>
