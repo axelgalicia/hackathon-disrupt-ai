@@ -43,7 +43,12 @@ def query_model():
 
 def decode64(base64Image):
     print(base64Image)
-    decoded = base64.b64decode(base64Image)
+    if len(base64Image) % 4 != 0: #check if multiple of 4
+        while len(base64Image) % 4 != 0:
+            base64Image = base64Image + "="
+            decoded = base64.b64decode(base64Image)
+        else:
+            decoded = base64.b64decode(base64Image)
     ts = int(time.time())
     path = "./uploads/image.jpeg"
     image = open(path, "wb+")
@@ -60,6 +65,7 @@ def stringToRGB(base64_string):
     image = Image.open(io.BytesIO(imgdata))
     zz = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
     print(zz)
+
 
 # convert PIL Image to an RGB image( technically a numpy array ) that's compatible with opencv
 def toRGB(image):
