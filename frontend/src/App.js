@@ -64,6 +64,11 @@ const App = () => {
       setQueryResponse(res.result);
     });
   }
+  const handleKeyPress = (e) => {
+    if(e.which === 13) {
+      handleQuery(remoteQuery);
+    }
+  }
   return (
     <>
       <div className="app">
@@ -109,7 +114,7 @@ const App = () => {
             <>
               <img src={remoteImage} alt="remote" className="app--remote__image"/>
               <div className="app--remote__query">
-              <input type="text" className="app--remote__input" onChange={(e) => handleUserInput(e)}></input> 
+              <input type="text" className="app--remote__input" onChange={(e) => handleUserInput(e)} onKeyPress={(e) => handleKeyPress(e)}></input> 
               <button onClick={() => handleQuery(remoteQuery)} className="app--remote__button">Query</button>
               <p>{ queryResponse ? queryResponse : '' }</p>
             </div>
