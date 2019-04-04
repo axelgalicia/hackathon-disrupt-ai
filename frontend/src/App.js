@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import {useDropzone} from 'react-dropzone'
 import './App.scss';
+import TrainingGif from './training.gif';
 import * as API from './api/AI'
 
 const App = () => {
@@ -30,9 +31,11 @@ const App = () => {
     setShowUploadButton(false);
     try{
       API.postImage(image).then( res => {
-        setShowUploadButton(false);
-        setFileUpLoading(false);
-        setRemoteImage(image);
+        setTimeout(() => {
+          setShowUploadButton(false);
+          setFileUpLoading(false);
+          setRemoteImage(image);
+        }, 3000);
       })
       .then(response => console.log('Success:', JSON.stringify(response)))
       .catch(error => {
@@ -56,7 +59,7 @@ const App = () => {
     <>
       <div className="app">
         <div className="app--local">
-          <div {...getRootProps()}>
+          <div {...getRootProps()} className="app--local__wrapper">
             <input 
             {...getInputProps()} 
             accept=".jpg, .jpeg, .png, .gif, .ico, .tiff"
@@ -76,11 +79,12 @@ const App = () => {
           {
             showUploadButton ? 
             <>
-              <button onClick={() => handleUpload(localImage)} className="App--local__button">Upload</button>      
+              <button onClick={() => handleUpload(localImage)} className="app--local__button">Upload</button>      
             </>:
             fileUpLoading &&
-            <div className="loading">
-              Uploading image...
+            <div className="app--local__loading">
+              <img src={TrainingGif} alt="training" />
+              <p>Training...</p>
             </div>
           }
           {
@@ -96,8 +100,8 @@ const App = () => {
             <>
               <img src={remoteImage} alt="remote" className="app--remote__image"/>
               <div className="app--remote__query">
-              <input type="text"></input> 
-              <button onClick={() => handleQuery(remoteQuery)} className="App--local__button">Query</button>
+              <input type="text" className="app--remote__input"></input> 
+              <button onClick={() => handleQuery(remoteQuery)} className="app--remote__button">Query</button>
               <p>{ queryResponse ? queryResponse : '' }</p>
             </div>
             </> :
