@@ -6,6 +6,9 @@ from flask import request
 from flask import Flask, flash, request, redirect, url_for, jsonify
 from flask_cors import CORS
 
+import numpy as np
+
+
 from werkzeug.utils import secure_filename
 
 import base64
@@ -32,17 +35,17 @@ def receive_image():
         json = request.get_json()
         picture = json['picture']
         decode64(picture)
-        #stringToRGB(picture)
     return jsonify({'result':'Image uploaded'})
 
 @app.route("/query", methods=['POST'])
 def query_model():
     json = request.get_json()
-    print(json['query'])
+    query = json['query']
+    print(query)
     return jsonify({'result':'Revenue is $90M'})
 
 def decode64(base64Image):
-    print(base64Image)
+    restoreImage(base64Image)
     if len(base64Image) % 4 != 0: #check if multiple of 4
         while len(base64Image) % 4 != 0:
             base64Image = base64Image + "="
@@ -58,18 +61,13 @@ def decode64(base64Image):
 def encode64(element):
     return base64.b64encode(element)
 
-
-# Take in base64 string and return cv image
-def stringToRGB(base64_string):
-    imgdata = base64.b64decode(base64_string)
-    image = Image.open(io.BytesIO(imgdata))
-    zz = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
-    print(zz)
+def restoreImage(base64Image):
+    # Convert String of image data to uint8
+    np_arr = np.fromstring(base64Image, np.uint8)
+    print(np_arr.size)
+    return ''
 
 
-# convert PIL Image to an RGB image( technically a numpy array ) that's compatible with opencv
-def toRGB(image):
-    return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
 
 
 
