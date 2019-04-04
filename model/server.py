@@ -35,6 +35,7 @@ def receive_image():
         json = request.get_json()
         picture = json['picture']
         name = json['name']
+        name = name.split('.')[0]
         print(name)
         decode64(picture)
     return jsonify({'result':'Image uploaded'})
