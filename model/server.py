@@ -34,6 +34,8 @@ def receive_image():
     if request.method == 'POST':
         json = request.get_json()
         picture = json['picture']
+        name = json['name']
+        print(name)
         decode64(picture)
     return jsonify({'result':'Image uploaded'})
 
@@ -42,7 +44,7 @@ def query_model():
     json = request.get_json()
     query = json['query']
     print(query)
-    return jsonify({'result':'Revenue is $90M'})
+    return jsonify({'result':respond(query)})
 
 def decode64(base64Image):
     restoreImage(base64Image)
@@ -66,6 +68,16 @@ def restoreImage(base64Image):
     np_arr = np.fromstring(base64Image, np.uint8)
     print(np_arr.size)
     return ''
+
+def respond(q):
+    if q == 'what is the revenue?':
+        return '$3,000.00'
+    elif q == 'what is the highest value?':
+        return 'Germany - 3,2000'
+    elif q == 'what is the lowest value?':
+        return 'Netherlands'
+    else:
+        return 'Question not understood'
 
 
 
