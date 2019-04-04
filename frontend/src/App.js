@@ -16,12 +16,13 @@ const App = () => {
 
   const onDrop = useCallback(acceptedFiles => {
     const reader = new FileReader()
-    reader.onabort = () => console.log('file reading was aborted')
-    reader.onerror = () => console.log('file reading has failed')
+    reader.onabort = () => setRemoteImage('file reading was aborted')
+    reader.onerror = () => setRemoteImage('file reading has failed')
     reader.onload = () => {
       const base64Encoded = reader.result
       base64Encoded && setLocalImage(base64Encoded)
       setShowUploadButton(true);
+      setRemoteImage(null);
     }
     acceptedFiles.forEach(file => reader.readAsDataURL(file))
   }, [])
