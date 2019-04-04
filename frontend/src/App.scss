@@ -9,7 +9,18 @@
   &--local {
     margin-right: 10px;
     flex: 0.5;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: center;
+    }
     &__placeholder {
+      padding: 0 40px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -30,11 +41,28 @@
       width: 100px;
       height: auto;
     }
+    &__loading {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    &__button {
+      margin-top: 10px;
+      padding: 10px;
+      background: #0a6fb3;
+      color: white;
+    }
   }
   &--remote {
     flex: 0.5;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
 
     &__placeholder {
+      padding: 0 40px;
       background: grey;
       height: 100px;
       display: flex;
@@ -48,12 +76,30 @@
       }
     }
     &__image {
-      width: 500px;
+      width: 300px;
       height: auto;
     }
 
     &__query {
       width: 300px;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    &__input {
+      height: 20px;
+      border: 1px solid;
+      padding: 5px;
+    }
+
+    &__button {
+      padding: 10px;
+      margin-top: 10px;
+      background: #0a6fb3;
+      color: white;
     }
   }
 }
