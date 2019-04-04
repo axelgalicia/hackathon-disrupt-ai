@@ -9,6 +9,7 @@ const App = () => {
   const [localImage, setLocalImage] = useState(null);
   const [error, setError] = useState(null);
   const [remoteImage, setRemoteImage] = useState(null);
+  const [fileName, setFileName] = useState('');
 
   const [remoteQuery, setRemoteQuery] = useState('');
   const [queryResponse, setQueryResponse] = useState(null);
@@ -23,6 +24,7 @@ const App = () => {
       base64Encoded && setLocalImage(base64Encoded)
       setShowUploadButton(true);
       setRemoteImage(null);
+      setFileName(acceptedFiles[0].name)
     }
     acceptedFiles.forEach(file => reader.readAsDataURL(file))
   }, [])
@@ -31,7 +33,7 @@ const App = () => {
     setFileUpLoading(true);
     setShowUploadButton(false);
     try{
-      API.postImage(image).then( res => {
+      API.postImage(image, fileName).then( res => {
         setTimeout(() => {
           setShowUploadButton(false);
           setFileUpLoading(false);
