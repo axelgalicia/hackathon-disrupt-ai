@@ -4,7 +4,7 @@
   }
   button {
     margin-top: 10px;
-    font-size: 20px;
+    font-size: 16px;
     padding: 10px 40px;
     background: #0a6fb3;
     color: white;
@@ -55,9 +55,6 @@
       flex-direction: column;
       flex-wrap: wrap;
       align-items: center;
-      p {
-        font-size: 30px;
-      }
     }
   }
   &--remote {
@@ -82,12 +79,11 @@
       }
     }
     &__image {
-      width: 300px;
+      width: 500px;
       height: auto;
     }
 
     &__query {
-      width: 300px;
       margin-top: 20px;
       display: flex;
       flex-direction: column;
@@ -96,10 +92,16 @@
     }
 
     &__input {
-      height: 20px;
+      height: 40px;
       border: 1px solid;
-      padding: 5px;
+      font-size: 16px;
+      padding: 0 8px;
+      width: 480px;
+      text-align: center;
     }
 
+    &__button {
+      width: 500px;
+    }
   }
 }

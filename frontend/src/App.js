@@ -50,6 +50,9 @@ const App = () => {
       setError(e.message);
     }
   }
+  const handleUserInput = () => {
+    setQueryResponse(null);
+  }
   // Handles Query
   const handleQuery = (query) => {
     API.queryModel(query).then( res => {
@@ -103,7 +106,7 @@ const App = () => {
             <>
               <img src={remoteImage} alt="remote" className="app--remote__image"/>
               <div className="app--remote__query">
-              <input type="text" className="app--remote__input"></input> 
+              <input type="text" className="app--remote__input" onChange={() => handleUserInput()}></input> 
               <button onClick={() => handleQuery(remoteQuery)} className="app--remote__button">Query</button>
               <p>{ queryResponse ? queryResponse : '' }</p>
             </div>
