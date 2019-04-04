@@ -1,16 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import {useDropzone} from 'react-dropzone'
-// import axios from 'axios';
 import './App.scss';
 import * as API from './api/AI'
-
-// const remoteUrl = 'https://jsonplaceholder.typicode.com/users';
 
 const App = () => {
   const [fileUpLoading, setFileUpLoading] = useState(false);
   const [localImage, setLocalImage] = useState(null);
+  const [error, setError] = useState(null);
   const [remoteImage, setRemoteImage] = useState(null);
-  const [remoteText, setRemoteText] = useState(null);
 
   const [remoteQuery, setRemoteQuery] = useState(null);
   const [queryResponse, setQueryResponse] = useState(null);
@@ -32,27 +29,19 @@ const App = () => {
     setFileUpLoading(true);
     setShowUploadButton(false);
     try{
-      // axios.post(remoteUrl, { image })
-      // .then(res => {
-      //   setShowUploadButton(false);
-      //   setFileUpLoading(false);
-      //   const resData = res && res.data;
-      //   const txtSrc = resData && resData.text;
-      //   const imgSrc = resData && resData.image;
-      //   imgSrc && setRemoteImage(imgSrc);
-      //   txtSrc && setRemoteText(txtSrc);
-      // })
-      // .catch(err => {
-      //   console.log(err);
-      // })
       API.postImage(image).then( res => {
         setShowUploadButton(false);
         setFileUpLoading(false);
         setRemoteImage(image);
+      })
+      .then(response => console.log('Success:', JSON.stringify(response)))
+      .catch(error => {
+        setFileUpLoading(false);
+        setError(error.message);
       });
     }
     catch(e) {
-      console.log(e);
+      setError(e.message);
     }
   }
   // Handles Query
@@ -94,15 +83,20 @@ const App = () => {
               Uploading image...
             </div>
           }
+          {
+            error &&
+            <div className="error">
+              Error: {error}
+            </div>
+          }
         </div>
         <div className="app--remote">
           {
             remoteImage ?
             <>
               <img src={remoteImage} alt="remote" className="app--remote__image"/>
-              <p>{remoteText}</p>
               <div className="app--remote__query">
-              {/* <input type="text"></input>  */}
+              <input type="text"></input> 
               <button onClick={() => handleQuery(remoteQuery)} className="App--local__button">Query</button>
               <p>{ queryResponse ? queryResponse : '' }</p>
             </div>

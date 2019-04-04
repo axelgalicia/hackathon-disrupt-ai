@@ -18,7 +18,6 @@ export const queryModel = (query) =>
         body: JSON.stringify({ query })
     }).then(res => res.json())
 
-
     export const postImage = (bas64Image) =>
     fetch(`${API}/${IMAGE_UPLOAD_ENDPOINT}`, {
         method: 'POST',
