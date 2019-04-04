@@ -11,10 +11,10 @@
  ```
  3) Install Dependencies
   ```
-  pip Install Flask
+  pip install Flask
   pip install Pillow
   pip install opencv-python
-  ip install -U flask-cors
+  pip install -U flask-cors
   ```
 
   4) Run the python server

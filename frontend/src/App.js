@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import {useDropzone} from 'react-dropzone'
-import axios from 'axios';
+// import axios from 'axios';
 import './App.scss';
-// import * as API from './api/AI'
+import * as API from './api/AI'
 
-const remoteUrl = 'https://jsonplaceholder.typicode.com/users';
+// const remoteUrl = 'https://jsonplaceholder.typicode.com/users';
 
 const App = () => {
   const [fileUpLoading, setFileUpLoading] = useState(false);
@@ -12,8 +12,8 @@ const App = () => {
   const [remoteImage, setRemoteImage] = useState(null);
   const [remoteText, setRemoteText] = useState(null);
 
-  // const [remoteQuery, setRemoteQuery] = useState(null);
-  // const [queryResponse, setQueryResponse] = useState(null);
+  const [remoteQuery, setRemoteQuery] = useState(null);
+  const [queryResponse, setQueryResponse] = useState(null);
   const [showUploadButton, setShowUploadButton] = useState(false);
 
   const onDrop = useCallback(acceptedFiles => {
@@ -32,37 +32,37 @@ const App = () => {
     setFileUpLoading(true);
     setShowUploadButton(false);
     try{
-      axios.post(remoteUrl, { image })
-      .then(res => {
-        setShowUploadButton(false);
-        setFileUpLoading(false);
-        const resData = res && res.data;
-        const txtSrc = resData && resData.text;
-        const imgSrc = resData && resData.image;
-        imgSrc && setRemoteImage(imgSrc);
-        txtSrc && setRemoteText(txtSrc);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      // API.postImage(image).then( res => {
+      // axios.post(remoteUrl, { image })
+      // .then(res => {
       //   setShowUploadButton(false);
       //   setFileUpLoading(false);
-      //   setRemoteImage(image);
-      // });
+      //   const resData = res && res.data;
+      //   const txtSrc = resData && resData.text;
+      //   const imgSrc = resData && resData.image;
+      //   imgSrc && setRemoteImage(imgSrc);
+      //   txtSrc && setRemoteText(txtSrc);
+      // })
+      // .catch(err => {
+      //   console.log(err);
+      // })
+      API.postImage(image).then( res => {
+        setShowUploadButton(false);
+        setFileUpLoading(false);
+        setRemoteImage(image);
+      });
     }
     catch(e) {
       console.log(e);
     }
   }
   // Handles Query
-  // const handleQuery = (query) => {
-  //   API.queryModel(query).then( res => {
-  //     setShowUploadButton(false);
-  //     setFileUpLoading(false);
-  //     setQueryResponse(res.result);
-  //   });
-  // }
+  const handleQuery = (query) => {
+    API.queryModel(query).then( res => {
+      setShowUploadButton(false);
+      setFileUpLoading(false);
+      setQueryResponse(res.result);
+    });
+  }
   return (
     <>
       <div className="app">
@@ -102,9 +102,9 @@ const App = () => {
               <img src={remoteImage} alt="remote" className="app--remote__image"/>
               <p>{remoteText}</p>
               <div className="app--remote__query">
-              {/* <input type="text"></input> 
+              {/* <input type="text"></input>  */}
               <button onClick={() => handleQuery(remoteQuery)} className="App--local__button">Query</button>
-              <p>{ queryResponse ? queryResponse : '' }</p> */}
+              <p>{ queryResponse ? queryResponse : '' }</p>
             </div>
             </> :
             <div className="app--remote__placeholder">
