@@ -2,6 +2,13 @@
   p {
     font-size: 20px;
   }
+  button {
+    margin-top: 10px;
+    font-size: 20px;
+    padding: 10px 40px;
+    background: #0a6fb3;
+    color: white;
+  }
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,7 +37,6 @@
       background: grey;
       height: 100px;
       text-align: center;
-
       p {
         color: white;
         margin: 0;
@@ -52,12 +58,6 @@
       p {
         font-size: 30px;
       }
-    }
-    &__button {
-      margin-top: 10px;
-      padding: 10px;
-      background: #0a6fb3;
-      color: white;
     }
   }
   &--remote {
@@ -101,11 +101,5 @@
       padding: 5px;
     }
 
-    &__button {
-      padding: 10px;
-      margin-top: 10px;
-      background: #0a6fb3;
-      color: white;
-    }
   }
 }
